@@ -28,6 +28,7 @@ function init(data) {
     const metadataDiv = d3.select("#sample-metadata");
     metadataDiv.html("");
 
+    
     // Initialize the chart with the first sample's data
     const firstSample = data.names[0];
     
