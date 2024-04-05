@@ -34,6 +34,7 @@ function init(data) {
     
     buildBarChart(firstSample, data);
     buildBubbleChart(firstSample, data);
+    updateMetadata(firstSample, data);
 }
 
 function buildBarChart(sample, data) {
@@ -101,6 +102,17 @@ const dataPlot = [trace2];
     Plotly.newPlot("bubble", dataPlot, layout);
 }
 
+function updateMetadata(sample, data) {
+    const metadata = data.metadata.filter(obj => obj.id == sample)[0];
+    const metadataDiv = d3.select("#sample-metadata");
+    metadataDiv.html(""); // Clear existing metadata
+
+    Object.entries(metadata).forEach(([key, value]) => {
+        metadataDiv
+            .append("p") // Use paragraph tags for each key-value pair
+            .text(`${key}: ${value}`);
+    });
+}
 // Event listener for the dropdown menu
 d3.select("#sample-select").on("change", function() {
     const newData = d3.select(this).property("value");
@@ -108,6 +120,7 @@ d3.select("#sample-select").on("change", function() {
         init(data);
         buildBarChart(newData, data);
         buildBubbleChart(newData, data);
+        updateMetadata(newData, data);
     });
 });
 
