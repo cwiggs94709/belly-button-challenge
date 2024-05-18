@@ -16,7 +16,7 @@ d3.json(url).then(function(data) {
 
 function init(data) {
     
-    const selector = d3.select("#sample-select");
+    const selector = d3.select("#selDataset");
     data.names.forEach((sample) => {
         selector
             .append("option")
@@ -60,7 +60,7 @@ function buildBarChart(sample, data) {
         margin: { l: 100, r: 100, t: 100, b: 100 }
     };
 
-    Plotly.newPlot("bar-chart", dataPlot, layout);
+    Plotly.newPlot("bar", dataPlot, layout);
 }
 
 //Create a bubble chart that displays each sample.
@@ -114,7 +114,7 @@ function updateMetadata(sample, data) {
     });
 }
 // Event listener for the dropdown menu
-d3.select("#sample-select").on("change", function() {
+d3.select("#selDataset").on("change", function() {
     const newData = d3.select(this).property("value");
     d3.json(url).then(function(data) {
         init(data);
